@@ -4,4 +4,4 @@
 ## Application Screens:
 ### Below are images of menus that establish my code with clear articulate instructions for user friendly traversing
 ## Interesting Code:
-### The following code stuck out to me the most in my application because it challenged my understanding.
+### The searchByVendor() method reads the transaction list, filters by vendor name, and prints results. It shows how string matching and list iteration can be used for simple search functionality. This was the most interesting for me because I had to do a lot of outside research to figure it out. 
