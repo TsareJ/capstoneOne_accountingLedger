@@ -68,12 +68,45 @@ public class Main {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine().trim();
 
+        System.out.print("Enter vendor: ");
+        String vendor = scanner.nextLine().trim();
+
+        double amount = 0;
+        while (true) {
+            System.out.print("Enter amount: ");
+            try {
+                amount = Double.parseDouble(scanner.nextLine().trim());
+                if (amount <= 0) {
+                    System.out.println("Amount must be positive. Please try again.");
+                    continue;
+                }
+                if (!isDeposit) {
+                    amount = -amount;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid amount. Please enter a valid number.");
+            }
+        }
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(transactionsCSV, true))) {
+            writer.printf("%s|%s|%s|%s|%.2f%n",
+                    date.format(dateTimeFormatter),
+                    time.format(timeFormatter),
+                    description,
+                    vendor,
+                    amount);
+            System.out.println("Transaction added successfully!");
+        } catch (IOException e) {
+            System.err.println("Error saving transaction: ");
+        }
     }
 
     private static void ledgerScreen() {
+
     }
-
-
 }
 
