@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static String string = "transactions.csv";
+    private static String transactionsCSV = "transactions.csv";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -20,11 +20,60 @@ public class Main {
     }
 
     private static void createFileIfNotExists() {
-        File
+        File file = new File(transactionsCSV);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                try (PrintWriter writer = new PrintWriter(new FileWriter(transactionsCSV))) {
+                    writer.println("date|time|description|vendor|amount");
+                }
+            } catch (IOException e) {
+                System.out.println("File not found! Creating new transaction: ");
+            }
+        }
     }
 
     private static void homeScreen() {
+        while (true) {
+            System.out.println("\nWelcome Home: ");
+            System.out.println("1) Add Deposit");
+            System.out.println("2) Make Payment");
+            System.out.println("3) Ledger");
+            System.out.println("0) Exit");
+            System.out.print("Make a selection");
+
+            String choice = scanner.nextLine().trim().toUpperCase();
+
+            switch (choice) {
+                case "1":
+                    addTransaction(true);
+                    break;
+                case "2":
+                    addTransaction(false);
+                    break;
+                case "3":
+                    ledgerScreen();
+                    break;
+                case "4":
+                    System.out.println("Exiting application. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
     }
+
+    private static void addTransaction(boolean isDeposit) {
+        System.out.println("\n=== " +(isDeposit ? "Add Deposit" : "Make a Payment" + "===");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+
+    }
+
+    private static void ledgerScreen() {
+    }
+
 
 }
 
