@@ -99,13 +99,37 @@ public class Main {
                     description,
                     vendor,
                     amount);
-            System.out.println("Transaction added successfully!");
+            System.out.println("This transaction has been added successfully!");
         } catch (IOException e) {
-            System.err.println("Error saving transaction: ");
+            System.out.println("Error saving transaction: ");
         }
     }
 
     private static void ledgerScreen() {
+        while (true) {
+            System.out.println("\n The ULTIMATE Ledger");
+            System.out.println("1) All Entries");
+            System.out.println("2) Deposits");
+            System.out.println("3) Payments");
+            System.out.println("4) Reports");
+            System.out.println("5) Home");
+            System.out.println("Please select am option: ");
+
+            String choice = scanner.nextLine().trim().toUpperCase();
+
+            switch (choice) {
+                case "1":
+                    displayTransactions(null);
+                    break;
+                case "2":
+                    displayTransactions("Deposits");
+                    break;
+                case "3":
+                    displayTransactions("Payments");
+
+            }
+
+        }
 
     }
 }
