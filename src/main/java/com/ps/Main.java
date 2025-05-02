@@ -126,11 +126,16 @@ public class Main {
                     break;
                 case "3":
                     displayTransactions("Payments");
-
+                    break;
+                case "4":
+                    reportsScreen();
+                    break;
+                case "5":
+                    return;
+                default:
+                    System.out.println("Invalid selection. Please read carefully and try again.");
             }
-
         }
-
     }
 }
 
