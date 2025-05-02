@@ -155,7 +155,7 @@ public class Main {
                 .thenComparing(Transaction::time)
                 .reversed());
 
-        System.out.println("\n=== TRANSACTIONS ===");
+        System.out.println("\n TRANSACTIONS");
         System.out.printf("%-12s %-10s %-25s %-20s %10s%n",
                 "Date", "Time", "Description", "Vendor", "Amount");
         System.out.println("---------------------------------------------------------------");
@@ -318,7 +318,7 @@ public class Main {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Error reading file: " + e.getMessage());
+                System.out.println("Error reading file: " );
             }
             return transactions;
         }
