@@ -1,0 +1,6 @@
+=== HOME SCREEN ===
+1) Add Deposit
+2) Make Payment
+3) View Ledger
+0) Exit
+What would you like to do? 
