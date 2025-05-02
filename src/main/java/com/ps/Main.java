@@ -107,7 +107,7 @@ public class Main {
     }
 
     private static void ledgerScreen() {
-        int command;
+        int command = 0;
         do {
             System.out.println("\n The ULTIMATE Ledger");
             System.out.println("1) All Entries");
@@ -239,9 +239,38 @@ public class Main {
         } while (command != 0);
     }
 
+    private static void filterByPeriod(String periodType) {
+        LocalDate now = LocalDate.now();
+        LocalDate startDate = null;
+        LocalDate endDate = null;
+        String periodName = "";
+
+        switch (periodType) {
+            case "monthToDate":
+                startDate = now.withDayOfMonth(1);
+                endDate = now;
+                periodName = "Month to Date";
+                break;
+            case "previousMonth":
+                startDate = now.minusMonths(1).withDayOfMonth(1);
+                endDate = now.withDayOfMonth(1).minusDays(1);
+                periodName = "Previous Month";
+                break;
+            case "yearToDate":
+                startDate = now.withDayOfYear(1);
+                endDate = now;
+                periodName = "Year to Date";
+                break;
+            default:
+                System.out.println("Invalid period type");
+                return;
+        }
 
 
-            private static void searchByVendor () {
+    }
+
+
+    private static void searchByVendor () {
                 System.out.print("Enter vendor name to search: ");
                 String vendorSearch = scanner.nextLine().toLowerCase();
 
@@ -284,7 +313,8 @@ public class Main {
                                         fields[2],
                                         fields[3],
                                         Double.parseDouble(fields[4])
-                                ));
+                       ));
+
                     }
                 }
             } catch (IOException e) {
