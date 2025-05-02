@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -130,12 +131,63 @@ public class Main {
                 case "4":
                     reportsScreen();
                     break;
-                case "5":
-                    return;
+                case "0":
+                    System.out.println("Going back!");
+                    break;
                 default:
                     System.out.println("Invalid selection. Please read carefully and try again.");
             }
         }
     }
+
+    private static void displayTransactions(String filter) {
+        List<Transaction> transactions = loadTransactions();
+
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions were recovered.");
+            return;
+        }
+
+        // Sort by date and time descending (newest first)
+        transactions.sort(Comparator.comparing(Transaction::getDate)
+                .thenComparing(Transaction::getTime)
+                .reversed();
+
+        System.out.println("\nTRANSACTIONS");
+        System.out.printf("%-12s %-10s %-25s %-20s %10s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("---------------------------------------------------------------");
+
+        for (Transaction t : transactions) {
+            if (filter == null ||
+                    (filter.equals("deposits") && t.getAmount() > 0) ||
+                    (filter.equals("payments") && t.getAmount() < 0)) {
+                System.out.printf("%-12s %-10s %-25s %-20s %10.2f%n",
+                        t.getDate().format(dateTimeFormatter),
+                        t.getTime().format(timeFormatter),
+                        t.getDescription(),
+                        t.getVendor(),
+                        t.getAmount());
+            }
+
+            private static void reportsScreen() {
+                int command;
+                do {
+                    System.out.println("\nREPORTS");
+                    System.out.println("1) Month To Date");
+                    System.out.println("2) Previous Month");
+                    System.out.println("3) Year To Date");
+                    System.out.println("4) Previous Year");
+                    System.out.println("5) Search by Vendor");
+                    System.out.println("6) Custom Search");
+                    System.out.println("0) Back");
+                    System.out.print("What would you like to do? ");
+                    command = scanner.nextInt();
+                    scanner.nextLine();
+                }
+            }
+        }
+    }
 }
+
 
