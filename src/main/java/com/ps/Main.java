@@ -107,7 +107,8 @@ public class Main {
     }
 
     private static void ledgerScreen() {
-        while (true) {
+        int command;
+        do {
             System.out.println("\n The ULTIMATE Ledger");
             System.out.println("1) All Entries");
             System.out.println("2) Deposits");
@@ -118,76 +119,71 @@ public class Main {
 
             String choice = scanner.nextLine().trim().toUpperCase();
 
-            switch (choice) {
-                case "1":
+            switch (command) {
+                case 1:
                     displayTransactions(null);
                     break;
-                case "2":
+                case 2:
                     displayTransactions("Deposits");
                     break;
-                case "3":
+                case 3:
                     displayTransactions("Payments");
+                case 4:
+                    reportScreen();
                     break;
-                case "4":
-                    reportsScreen();
-                    break;
-                case "0":
-                    System.out.println("Going back!");
+                case 0:
+                    System.out.println("Going home");
                     break;
                 default:
-                    System.out.println("Invalid selection. Please read carefully and try again.");
+                    System.out.println("Incorrect command, read carefully and try again");
             }
-        }
+        } while (command != 0);
+
     }
 
-    private static void displayTransactions(String filter) {
-        List<Transaction> transactions = loadTransactions();
+    private static void displayTransactions(Object o) {
+    }
 
-        if (transactions.isEmpty()) {
-            System.out.println("No transactions were recovered.");
-            return;
-        }
+    private static void reportScreen() {
+        int command;
+        do {
+            System.out.println("\n=== REPORTS ===");
+            System.out.println("1) Month To Date");
+            System.out.println("2) Previous Month");
+            System.out.println("3) Year To Date");
+            System.out.println("4) Previous Year");
+            System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
+            System.out.println("0) Back");
+            System.out.print("What would you like to do? ");
+            command = scanner.nextInt();
+            scanner.nextLine();
 
-        // Sort by date and time descending (newest first)
-        transactions.sort(Comparator.comparing(Transaction::getDate)
-                .thenComparing(Transaction::getTime)
-                .reversed();
-
-        System.out.println("\nTRANSACTIONS");
-        System.out.printf("%-12s %-10s %-25s %-20s %10s%n",
-                "Date", "Time", "Description", "Vendor", "Amount");
-        System.out.println("---------------------------------------------------------------");
-
-        for (Transaction t : transactions) {
-            if (filter == null ||
-                    (filter.equals("deposits") && t.getAmount() > 0) ||
-                    (filter.equals("payments") && t.getAmount() < 0)) {
-                System.out.printf("%-12s %-10s %-25s %-20s %10.2f%n",
-                        t.getDate().format(dateTimeFormatter),
-                        t.getTime().format(timeFormatter),
-                        t.getDescription(),
-                        t.getVendor(),
-                        t.getAmount());
+            switch (command) {
+                case 1:
+                    filterByPeriod("monthToDate");
+                    break;
+                case 2:
+                    filterByPeriod("previousMonth");
+                    break;
+                case 3:
+                    filterByPeriod("yearToDate");
+                    break;
+                case 4:
+                    filterByPeriod("previousYear");
+                    break;
+                case 5:
+                    searchByVendor();
+                    break;
+                case 6:
+                    customSearch();
+                    break;
+                case 0:
+                    System.out.println("Going back");
+                    break;
+                default:
+                    System.out.println("Incorrect command, going back");
             }
-
-            private static void reportsScreen() {
-                int command;
-                do {
-                    System.out.println("\nREPORTS");
-                    System.out.println("1) Month To Date");
-                    System.out.println("2) Previous Month");
-                    System.out.println("3) Year To Date");
-                    System.out.println("4) Previous Year");
-                    System.out.println("5) Search by Vendor");
-                    System.out.println("6) Custom Search");
-                    System.out.println("0) Back");
-                    System.out.print("What would you like to do? ");
-                    command = scanner.nextInt();
-                    scanner.nextLine();
-                }
-            }
-        }
+        } while (command != 0);
     }
 }
-
-
